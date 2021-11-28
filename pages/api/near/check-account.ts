@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {configFromNetwork} from '@figment-near/lib';
-import {connect} from 'near-api-js';
+import {Account, connect} from 'near-api-js';
 
 export default async function (
   req: NextApiRequest,
@@ -11,9 +11,9 @@ export default async function (
     const config = configFromNetwork(NETWORK);
     const near = await connect(config);
     // try to query the account info of the
-    const accountInfo = undefined;
+    const accountInfo = new Account(near.connection, freeAccountId);
     try {
-      undefined;
+      await accountInfo.state();
       return res.status(200).json(false);
     } catch (error) {
       return res.status(200).json(true);

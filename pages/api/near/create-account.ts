@@ -10,7 +10,7 @@ export default async function (
     const {freeAccountId, publicKey, NETWORK} = req.body;
     const config = configFromNetwork(NETWORK);
     const near = await connect(config);
-    undefined;
+    await near.createAccount(freeAccountId, publicKey);
     return res.status(200).json(freeAccountId);
   } catch (error) {
     let errorMessage = error instanceof Error ? error.message : 'Unknown Error';

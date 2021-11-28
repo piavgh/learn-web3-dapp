@@ -12,7 +12,9 @@ export default async function (
     const near = await connect(config);
     const account = await near.account(ACCOUNT_ID);
     // Using ViewFunction try to call the contract
-    const response = undefined;
+    const response = await account.viewFunction(ACCOUNT_ID, 'get_greeting', {
+      account_id: ACCOUNT_ID,
+    });
     return res.status(200).json(response);
   } catch (error) {
     let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
